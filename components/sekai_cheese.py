@@ -1,3 +1,4 @@
+from hashlib import md5
 from fastapi import APIRouter, Response
 from feedgen.feed import FeedGenerator
 from unstructured.partition.html import partition_html
@@ -46,7 +47,9 @@ def generate_rss():
     fg.description("世界チーズ協会の毎月のガレージセールをRSS配信します")
 
     fe = fg.add_entry()
-    fe.title(",".join(all_event_date))
+    content = ",".join(all_event_date)
+    fe.title(content)
+    fe.guid(md5(content.encode()).hexdigest(), permalink=False)
     fe.link(href="https://www.sekai-cheese.co.jp/")
 
     # XML文字列を生成し、レスポンスとして返す
