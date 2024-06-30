@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Response
 from feedgen.feed import FeedGenerator
 from unstructured.partition.html import partition_html
 
@@ -36,7 +36,7 @@ def parse():
     return all_set
 
 
-@router.get("/sekai-cheese")
+@router.get("/sekai-cheese", response_class=Response, media_type="application/xml")
 def generate_rss():
     all_event_date=parse()
 
@@ -49,4 +49,6 @@ def generate_rss():
     fe.title(",".join(all_event_date))
     fe.link(href="https://www.sekai-cheese.co.jp/")
 
-    return fg.rss_str(pretty=True)
+    # XML文字列を生成し、レスポンスとして返す
+    rss_str = fg.rss_str(pretty=True)
+    return Response(content=rss_str, media_type="application/xml")
