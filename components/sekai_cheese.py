@@ -36,7 +36,7 @@ def parse():
     return all_set
 
 
-@router.get("/sekai-cheese", response_class=Response, media_type="application/xml")
+@router.get("/sekai-cheese")
 def generate_rss():
     all_event_date=parse()
 
