@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+feedgen
+requests
+unstructured
+psutil
