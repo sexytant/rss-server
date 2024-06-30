@@ -12,5 +12,7 @@ RUN pip install -r requirements.txt
 # Copy the current directory contents into the container at /app
 COPY . /app
 
+EXPOSE 8080
+
 # Run main.py when the container launches
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
